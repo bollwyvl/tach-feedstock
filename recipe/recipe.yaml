@@ -47,9 +47,9 @@ build:
     content:
       - if: win
         then:
-          # for `path too long` errors
-          - set CARGO_HOME=c:\.cg
-          - md %CARGO_HOME%
+          # for `path too long` errors from e.g. `ruff_linter`
+          - git config --global core.longpaths true
+          - md "%CARGO_HOME%"
           - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\"
         else:
           - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/"
