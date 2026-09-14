@@ -48,7 +48,7 @@ build:
       - if: win
         then:
           # for `path too long` errors from e.g. `ruff_linter`
-          - call ${{ RECIPE_DIR }}\git-long-paths.bat
+          - git config --system core.longpaths true
           - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%LIBRARY_BIN%"
         else:
           - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/"
@@ -63,6 +63,7 @@ requirements:
     - ${{ stdlib("c") }}
     - cargo-bundle-licenses
     - cargo-auditable
+    - git
   host:
     - maturin >=${{ maturin_min }},<${{ maturin_max }}
     - pip
